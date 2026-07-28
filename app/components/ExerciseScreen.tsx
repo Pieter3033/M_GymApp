@@ -181,7 +181,6 @@ export function ExerciseScreen({
             <span className="eyebrow">PREVIOUS WORKOUT</span>
             <h2>{previousLabel}</h2>
           </div>
-          {previous && <ArrowRight size={18} />}
         </div>
         {previous?.record.type === "strength" ? (
           <div className="previous-stats">
@@ -463,4 +462,3 @@ export function ExerciseScreen({
     </div>
   );
 }
-
