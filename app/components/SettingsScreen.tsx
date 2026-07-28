@@ -21,7 +21,7 @@ export function SettingsScreen({
         <div>
           <span className="eyebrow">APP PREFERENCES</span>
           <h1>Settings</h1>
-          <p>Make Form feel right for every training session.</p>
+          <p>...</p>
         </div>
       </header>
 
