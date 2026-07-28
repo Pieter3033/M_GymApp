@@ -1,17 +1,8 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  Download,
-  FileJson,
-  FileSpreadsheet,
-  RotateCcw,
-  ShieldCheck,
-  Upload,
-} from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { createDefaultData } from "@/lib/defaultData";
 import type { GymAppData } from "@/lib/types";
-import { exportCsv, isGymAppData } from "@/lib/storage";
 
 interface SettingsScreenProps {
   data: GymAppData;
@@ -19,46 +10,11 @@ interface SettingsScreenProps {
   notify: (message: string) => void;
 }
 
-const download = (content: string, type: string, filename: string) => {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(url);
-};
-
 export function SettingsScreen({
   data,
   setData,
   notify,
 }: SettingsScreenProps) {
-  const fileInput = useRef<HTMLInputElement>(null);
-
-  const importData = async (file?: File) => {
-    if (!file) return;
-    try {
-      const parsed: unknown = JSON.parse(await file.text());
-      if (!isGymAppData(parsed)) {
-        notify("That file isn’t a valid Form backup");
-        return;
-      }
-      if (
-        window.confirm(
-          "Importing will replace your current program and workout history on this device. Continue?",
-        )
-      ) {
-        setData(parsed);
-        notify("Backup imported");
-      }
-    } catch {
-      notify("We couldn’t read that backup file");
-    } finally {
-      if (fileInput.current) fileInput.current.value = "";
-    }
-  };
-
   return (
     <div className="screen settings-screen">
       <header className="page-header">
@@ -98,69 +54,6 @@ export function SettingsScreen({
           </label>
         </section>
 
-        <section className="settings-card card">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">DATA MANAGEMENT</span>
-              <h2>Your workout data</h2>
-            </div>
-            <ShieldCheck size={21} />
-          </div>
-          <p className="section-intro">
-            Everything stays in this browser unless you export it. Make a
-            backup before clearing browser storage or moving devices.
-          </p>
-          <div className="settings-actions">
-            <button
-              onClick={() =>
-                download(
-                  JSON.stringify(data, null, 2),
-                  "application/json",
-                  `form-backup-${new Date().toISOString().slice(0, 10)}.json`,
-                )
-              }
-            >
-              <span className="action-icon"><FileJson size={19} /></span>
-              <span>
-                <strong>Export data</strong>
-                <small>Program, preferences and full history</small>
-              </span>
-              <Download size={18} />
-            </button>
-            <button onClick={() => fileInput.current?.click()}>
-              <span className="action-icon"><Upload size={19} /></span>
-              <span>
-                <strong>Import data</strong>
-                <small>Restore from a Form JSON backup</small>
-              </span>
-              <Upload size={18} />
-            </button>
-            <input
-              className="sr-only"
-              ref={fileInput}
-              type="file"
-              accept="application/json,.json"
-              onChange={(event) => importData(event.target.files?.[0])}
-            />
-            <button
-              onClick={() =>
-                download(
-                  exportCsv(data.workoutHistory),
-                  "text/csv",
-                  `form-history-${new Date().toISOString().slice(0, 10)}.csv`,
-                )
-              }
-            >
-              <span className="action-icon"><FileSpreadsheet size={19} /></span>
-              <span>
-                <strong>Export history as CSV</strong>
-                <small>Use your workout records in a spreadsheet</small>
-              </span>
-              <Download size={18} />
-            </button>
-          </div>
-        </section>
-
         <section className="settings-card card danger-zone">
           <div className="section-heading">
             <div>
@@ -192,4 +85,3 @@ export function SettingsScreen({
     </div>
   );
 }
-
