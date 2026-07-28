@@ -96,5 +96,5 @@ export const createDefaultData = (): GymAppData => ({
     ],
   },
   workoutHistory: {},
-  settings: { autoStartTimer: true, theme: "light" },
+  settings: { autoStartTimer: true, theme: "dark" },
 });

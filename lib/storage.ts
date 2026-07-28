@@ -33,7 +33,7 @@ export const loadData = (): GymAppData => {
       ...parsed,
       settings: {
         ...parsed.settings,
-        theme: parsed.settings.theme === "dark" ? "dark" : "light",
+        theme: parsed.settings.theme === "light" ? "light" : "dark",
       },
     };
   } catch {
