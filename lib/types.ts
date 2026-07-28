@@ -78,6 +78,7 @@ export interface WorkoutRecord {
 
 export interface Settings {
   autoStartTimer: boolean;
+  theme: "light" | "dark";
 }
 
 export interface GymAppData {
@@ -88,4 +89,3 @@ export interface GymAppData {
 }
 
 export type AppScreen = "today" | "program" | "progress" | "settings";
-

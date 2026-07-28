@@ -28,7 +28,14 @@ export const loadData = (): GymAppData => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return createDefaultData();
     const parsed: unknown = JSON.parse(raw);
-    return isGymAppData(parsed) ? parsed : createDefaultData();
+    if (!isGymAppData(parsed)) return createDefaultData();
+    return {
+      ...parsed,
+      settings: {
+        ...parsed.settings,
+        theme: parsed.settings.theme === "dark" ? "dark" : "light",
+      },
+    };
   } catch {
     return createDefaultData();
   }
@@ -202,4 +209,3 @@ export const bestStrengthSet = (records: StrengthExerciseRecord[]) =>
     .flatMap((record) => record.sets)
     .filter((set) => set.done && set.weight !== null)
     .sort((a, b) => (b.weight ?? 0) - (a.weight ?? 0))[0];
-

@@ -1,6 +1,6 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
+import { Moon, RotateCcw } from "lucide-react";
 import { createDefaultData } from "@/lib/defaultData";
 import type { GymAppData } from "@/lib/types";
 
@@ -21,11 +21,42 @@ export function SettingsScreen({
         <div>
           <span className="eyebrow">APP PREFERENCES</span>
           <h1>Settings</h1>
-          <p>Keep your data portable and your training uninterrupted.</p>
+          <p>Make Form feel right for every training session.</p>
         </div>
       </header>
 
       <div className="settings-layout">
+        <section className="settings-card card">
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">APPEARANCE</span>
+              <h2>Theme</h2>
+            </div>
+            <Moon size={21} />
+          </div>
+          <label className="toggle-row">
+            <span>
+              <strong>Dark mode</strong>
+              <small>Use a darker palette throughout the app.</small>
+            </span>
+            <input
+              type="checkbox"
+              role="switch"
+              aria-label="Dark mode"
+              checked={data.settings.theme === "dark"}
+              onChange={(event) =>
+                setData((current) => ({
+                  ...current,
+                  settings: {
+                    ...current.settings,
+                    theme: event.target.checked ? "dark" : "light",
+                  },
+                }))
+              }
+            />
+          </label>
+        </section>
+
         <section className="settings-card card">
           <div className="section-heading">
             <div>

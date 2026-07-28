@@ -65,6 +65,10 @@ export function GymApp() {
   }, [data, hydrated]);
 
   useEffect(() => {
+    document.documentElement.dataset.theme = data.settings.theme;
+  }, [data.settings.theme]);
+
+  useEffect(() => {
     if (!notice) return;
     const timer = window.setTimeout(() => setNotice(""), 2800);
     return () => window.clearTimeout(timer);
@@ -143,7 +147,7 @@ export function GymApp() {
   };
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" data-theme={data.settings.theme}>
       <aside className="desktop-rail" aria-label="Primary navigation">
         <div className="brand-mark" aria-label="Form">
           <Dumbbell size={23} strokeWidth={2.25} />
