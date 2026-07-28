@@ -30,3 +30,4 @@ The application has no backend, database, authentication, or external API.
 Persistent data is stored under the versioned `gym-app-data-v1` localStorage
 key.
 
+"# M_GymApp" 
