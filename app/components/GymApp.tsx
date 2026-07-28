@@ -163,6 +163,20 @@ export function GymApp() {
               <button
                 key={item.id}
                 className={screen === item.id ? "active" : ""}
+                disabled={item.id === "progress"}
+                aria-label={
+                  item.id === "progress" ? "Progress (unavailable)" : item.label
+                }
+                style={
+                  item.id === "progress"
+                    ? {
+                        background: "transparent",
+                        color: "var(--muted-2)",
+                        cursor: "not-allowed",
+                        opacity: 0.42,
+                      }
+                    : undefined
+                }
                 onClick={() => navigate(item.id)}
               >
                 <Icon size={20} />
@@ -198,6 +212,20 @@ export function GymApp() {
                 key={item.id}
                 className={screen === item.id ? "active" : ""}
                 aria-current={screen === item.id ? "page" : undefined}
+                disabled={item.id === "progress"}
+                aria-label={
+                  item.id === "progress" ? "Progress (unavailable)" : item.label
+                }
+                style={
+                  item.id === "progress"
+                    ? {
+                        background: "transparent",
+                        color: "var(--muted-2)",
+                        cursor: "not-allowed",
+                        opacity: 0.42,
+                      }
+                    : undefined
+                }
                 onClick={() => navigate(item.id)}
               >
                 <Icon size={22} />
