@@ -1,0 +1,24 @@
+.editProgramButton {
+  width: 44px;
+  flex: 0 0 auto;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 6px 16px rgba(39, 31, 43, 0.04);
+}
+
+.editProgramButton span {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .editProgramButton {
+    width: auto;
+    border-radius: 13px;
+    padding: 0 17px;
+    box-shadow: none;
+  }
+
+  .editProgramButton span {
+    display: inline;
+  }
+}

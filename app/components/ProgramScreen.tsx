@@ -20,6 +20,7 @@ import type {
   StrengthExercise,
   WorkoutDay,
 } from "@/lib/types";
+import styles from "./ProgramScreen.module.css";
 
 interface ProgramScreenProps {
   data: GymAppData;
@@ -228,7 +229,7 @@ export function ProgramScreen({
   const [draft, setDraft] = useState<Program>(() =>
     structuredClone(data.program),
   );
-  const [expanded, setExpanded] = useState<string[]>(["monday"]);
+  const [expanded, setExpanded] = useState<string[]>([]);
   const [editor, setEditor] = useState<{
     dayId: string;
     exercise?: Exercise;
@@ -241,6 +242,7 @@ export function ProgramScreen({
 
   const beginEditing = () => {
     setDraft(structuredClone(data.program));
+    setExpanded([]);
     setEditing(true);
   };
 
@@ -290,8 +292,13 @@ export function ProgramScreen({
             <h1>Weekly program</h1>
             <p>A clear rhythm for every training day.</p>
           </div>
-          <button className="secondary-button" onClick={beginEditing}>
-            <Pencil size={16} /> Edit program
+          <button
+            className={`secondary-button ${styles.editProgramButton}`}
+            aria-label="Edit program"
+            onClick={beginEditing}
+          >
+            <Pencil size={17} />
+            <span>Edit program</span>
           </button>
         </header>
         <section className="program-overview">
@@ -538,4 +545,3 @@ export function ProgramScreen({
     </div>
   );
 }
-
